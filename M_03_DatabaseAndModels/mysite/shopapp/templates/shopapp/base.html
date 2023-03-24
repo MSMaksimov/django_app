@@ -14,5 +14,14 @@
     Base body
 {% endblock %}
 
+<div>
+    {% now 'H:i' %}
+</div>
+
+<div>
+    {% now 'l' as cyrrent_weekday %}
+    Today is: {{ cyrrent_weekday }}
+</div>
+
 </body>
 </html>
