@@ -10,7 +10,7 @@ from .models import Product, Order
 def shop_index(request: HttpRequest):
     products = [
         ('Laptop', 1999),
-        ('Dasktop', 2999),
+        ('Desktop', 2999),
         ('Smartphone', 999),
 
     ]
