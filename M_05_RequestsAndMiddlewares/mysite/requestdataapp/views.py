@@ -17,3 +17,12 @@ def process_get_view(request: HttpRequest) -> HttpResponse:
 
 def user_form(request: HttpRequest) -> HttpResponse:
     return render(request, "requestdataapp/user-bio-form.html")
+
+
+def handle_file_upload(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST" and request.FILES.get("myfile"):
+        myfile = request.FILES["myfile"]
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        print("saved file:", filename)
+    return render(request, "requestdataapp/file-upload.html")

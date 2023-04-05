@@ -43,7 +43,7 @@
             <tr>
                 <td>BIO:</td>
                 <td>
-                    <p>{{ request.POST.bio }}</p>
+                    <p>{{ request.POST.bio|linebreaks }}</p>
                 </td>
             </tr>
         </table>
