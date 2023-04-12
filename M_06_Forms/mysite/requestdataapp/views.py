@@ -32,12 +32,10 @@ def handle_file_upload(request: HttpRequest) -> HttpResponse:
             myfile = form.cleaned_data["file"]
             fs = FileSystemStorage()
             filename = fs.save(myfile.name, myfile)
-            print("saved file", filename)
+            print("saved file:", filename)
     else:
         form = UploadFileForm()
-
     context = {
         "form": form,
     }
-
     return render(request, "requestdataapp/file-upload.html", context=context)
