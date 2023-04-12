@@ -11,7 +11,7 @@ class UserBioForm(forms.Form):
 
 def validate_file_name(file: InMemoryUploadedFile) -> None:
     if file.name and "virus" in file.name:
-        raise ValidationError("File name should not contain 'virus")
+        raise ValidationError("File name should not contain 'virus'")
 
 
 class UploadFileForm(forms.Form):

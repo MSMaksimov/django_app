@@ -5,7 +5,8 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect, reverse
 
 from .models import Product, Order
-from .forms import ProductForm
+from .forms import ProductForm, OrderForm
+
 
 def shop_index(request: HttpRequest):
     products = [
@@ -41,7 +42,8 @@ def create_product(request: HttpRequest) -> HttpResponse:
             # name = form.cleaned_data["name"]
             # price = form.cleaned_data["price"]
             # description = form.cleaned_data["description"]
-            Product.objects.create(**form.cleaned_data)
+            # Product.objects.create(**form.cleaned_data)
+            form.save()
             url = reverse("shopapp:products_list")
             return redirect(url)
     else:
@@ -51,8 +53,23 @@ def create_product(request: HttpRequest) -> HttpResponse:
     }
     return render(request, "shopapp/create-product.html", context=context)
 
+
 def orders_list(request: HttpRequest):
     context = {
         "orders": Order.objects.select_related("user").prefetch_related("products").all(),
     }
     return render(request, 'shopapp/orders-list.html', context=context)
+
+
+def create_order(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        form.save()
+        url = reverse("shopapp:orders_list")
+        return redirect(url)
+    else:
+        form = OrderForm()
+    context = {
+        "form": form
+    }
+    return render(request, "shopapp/create-order.html", context=context)
