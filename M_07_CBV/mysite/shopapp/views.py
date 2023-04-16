@@ -1,7 +1,7 @@
 from timeit import default_timer
 from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views import View
 
 from .models import Product, Order
@@ -36,6 +36,16 @@ class GroupsListView(View):
             form.save()
 
         return redirect(request.path)
+
+
+class ProductDetailsView(View):
+    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+        product = get_object_or_404(Product, pk=pk)
+        context = {
+            "product": product,
+        }
+        return render(request, "shopapp/product-details.html", context=context)
+
 
 def products_list(request: HttpRequest):
     context = {
