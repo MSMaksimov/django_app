@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
 
 from .models import Product, Order
 from .forms import ProductForm, OrderForm, GroupForm
@@ -56,6 +56,18 @@ class ProductCreateView(CreateView):
     model = Product
     fields = "name", "price", "description", "discount"
     success_url = reverse_lazy("shopapp:products_list")
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = "name", "price", "description", "discount"
+    template_name_suffix = "_update_form"
+
+    def get_success_url(self):
+        return reverse(
+            "shopapp:products_details",
+            kwargs={"pk": self.object.pk},
+        )
 
 
 class OrdersListView(ListView):
