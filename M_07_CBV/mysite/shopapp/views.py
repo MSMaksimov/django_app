@@ -1,10 +1,10 @@
 from timeit import default_timer
 from django.contrib.auth.models import Group
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Product, Order
 from .forms import ProductForm, OrderForm, GroupForm
@@ -48,8 +48,9 @@ class ProductDetailsView(DetailView):
 
 class ProductsListView(ListView):
     template_name = 'shopapp/products-list.html'
-    model = Product
+    # model = Product
     context_object_name = "products"
+    queryset = Product.objects.filter(archived=False)
 
 
 class ProductCreateView(CreateView):
@@ -68,6 +69,17 @@ class ProductUpdateView(UpdateView):
             "shopapp:products_details",
             kwargs={"pk": self.object.pk},
         )
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy("shopapp:products_list")
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        self.object.archived = True
+        self.object.save()
+        return HttpResponseRedirect(success_url)
 
 
 class OrdersListView(ListView):
