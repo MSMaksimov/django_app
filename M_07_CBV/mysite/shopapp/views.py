@@ -97,7 +97,6 @@ class OrderDetailView(DetailView):
         .select_related("user")
         .prefetch_related("products").all()
     )
-###########################
 
 
 class OrderUpdateView(UpdateView):
@@ -114,6 +113,19 @@ class OrderUpdateView(UpdateView):
             "shopapp:order_details",
             kwargs={"pk": self.object.pk},
         )
+
+
+###############################
+class OrderDeleteView(DeleteView):
+    model = Order
+    success_url = reverse_lazy("shopapp:orders_list")
+    #
+    # def form_valid(self, form):
+    #     success_url = self.get_success_url()
+    #     self.object.archived = True
+    #     self.object.save()
+    #     return HttpResponseRedirect(success_url)
+
 
 def create_order(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":

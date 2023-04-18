@@ -30,4 +30,5 @@ class Order(models.Model):
     promocode = models.CharField(max_length=20, null=False, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
+    # archived = models.BooleanField(default=False)
     products = models.ManyToManyField(Product, related_name="orders")
