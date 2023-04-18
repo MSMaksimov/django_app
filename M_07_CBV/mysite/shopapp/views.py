@@ -7,7 +7,7 @@ from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Product, Order
-from .forms import ProductForm, OrderForm, GroupForm
+from .forms import OrderForm, GroupForm
 
 
 class ShopIndexView(View):
@@ -56,6 +56,7 @@ class ProductsListView(ListView):
 class ProductCreateView(CreateView):
     model = Product
     fields = "name", "price", "description", "discount"
+    # form_class = ProductForm
     success_url = reverse_lazy("shopapp:products_list")
 
 
@@ -96,7 +97,23 @@ class OrderDetailView(DetailView):
         .select_related("user")
         .prefetch_related("products").all()
     )
+###########################
 
+
+class OrderUpdateView(UpdateView):
+    queryset = (
+        Order.objects
+        .select_related("user")
+        .prefetch_related("products").all()
+    )
+    fields = "delivery_address", "promocode", "user", "products"
+    template_name_suffix = "_update_form"
+
+    def get_success_url(self):
+        return reverse(
+            "shopapp:order_details",
+            kwargs={"pk": self.object.pk},
+        )
 
 def create_order(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":

@@ -10,6 +10,7 @@ from .views import (
     ProductCreateView,
     ProductUpdateView,
     ProductDeleteView,
+    OrderUpdateView,
     create_order
 )
 
@@ -24,6 +25,7 @@ urlpatterns = [
     path("products/<int:pk>/archive/", ProductDeleteView.as_view(), name="product_delete"),
     path("products/<int:pk>/", ProductDetailsView.as_view(), name="products_details"),
     path("orders/", OrdersListView.as_view(), name="orders_list"),
+    path("orders/<int:pk>/order-update/", OrderUpdateView.as_view(), name="order_update"),
     path("orders/<int:pk>/", OrderDetailView.as_view(), name="order_details"),
     path("orders/create/", create_order, name="order_create"),
 
