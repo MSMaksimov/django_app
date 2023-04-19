@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'shopapp.apps.ShopappConfig',
+    'myayth.apps.MyaythConfig',
     'requestdataapp.apps.RequestdataappConfig',
 ]
 
