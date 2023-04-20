@@ -5,6 +5,8 @@ from django.urls import path
 from .views import (
     get_cookie_view,
     set_cookie_view,
+    set_sessions_view,
+    get_sessions_view,
 )
 
 app_name = "myauth"
@@ -20,4 +22,6 @@ urlpatterns = [
          ),
     path("cookie/get/", get_cookie_view, name="cookie-get"),
     path("cookie/set/", set_cookie_view, name="cookie-set"),
+    path("session/set/", set_sessions_view, name="session-set"),
+    path("session/get/", get_sessions_view, name="session-get"),
 ]
