@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'shopapp.apps.ShopappConfig',
     'myayth.apps.MyaythConfig',
     'requestdataapp.apps.RequestdataappConfig',
+
 ]
 
 MIDDLEWARE = [
