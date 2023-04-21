@@ -7,7 +7,7 @@ from .views import (
     set_cookie_view,
     set_sessions_view,
     get_sessions_view,
-    logout_view,
+    # logout_view,
     MyLogoutView,
 )
 

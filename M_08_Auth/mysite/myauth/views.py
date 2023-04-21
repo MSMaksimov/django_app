@@ -5,27 +5,27 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse, reverse_lazy
 
 
-def login_view(request: HttpRequest) -> HttpResponse:
-    if request.method == "GET":
-        if request.user.is_authenticated:
-            return redirect('/admin/')
-
-        return render(request, 'myauth/login.html')
-
-    username = request.POST["username"]
-    password = request.POST["password"]
-
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return redirect("/admin/")
-
-    return render(request, 'myauth/login.html', {"error": "Invalid login credentials"})
-
-
-def logout_view(request: HttpRequest) -> HttpResponse:
-    logout(request)
-    return redirect(reverse("myauth:login"))
+# def login_view(request: HttpRequest) -> HttpResponse:
+#     if request.method == "GET":
+#         if request.user.is_authenticated:
+#             return redirect('/admin/')
+#
+#         return render(request, 'myauth/login.html')
+#
+#     username = request.POST["username"]
+#     password = request.POST["password"]
+#
+#     user = authenticate(request, username=username, password=password)
+#     if user is not None:
+#         login(request, user)
+#         return redirect("/admin/")
+#
+#     return render(request, 'myauth/login.html', {"error": "Invalid login credentials"})
+#
+#
+# def logout_view(request: HttpRequest) -> HttpResponse:
+#     logout(request)
+#     return redirect(reverse("myauth:login"))
 
 
 class MyLogoutView(LogoutView):
