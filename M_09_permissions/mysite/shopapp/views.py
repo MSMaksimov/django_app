@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 from .models import Product, Order
 from .forms import OrderForm, GroupForm
@@ -53,7 +54,10 @@ class ProductsListView(ListView):
     queryset = Product.objects.filter(archived=False)
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(UserPassesTestMixin, CreateView):
+    def test_func(self):
+        # return self.request.user.groups.filter(name="secret-group").exists()
+        return self.request.user.is_superuser
     model = Product
     fields = "name", "price", "description", "discount"
     # form_class = ProductForm
@@ -83,7 +87,7 @@ class ProductDeleteView(DeleteView):
         return HttpResponseRedirect(success_url)
 
 
-class OrdersListView(ListView):
+class OrdersListView(LoginRequiredMixin, ListView):
     queryset = (
         Order.objects
         .select_related("user")
@@ -91,7 +95,8 @@ class OrdersListView(ListView):
     )
 
 
-class OrderDetailView(DetailView):
+class OrderDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = "shopapp.view_order"
     queryset = (
         Order.objects
         .select_related("user")
@@ -118,27 +123,10 @@ class OrderUpdateView(UpdateView):
 class OrderDeleteView(DeleteView):
     model = Order
     success_url = reverse_lazy("shopapp:orders_list")
-    #
-    # def form_valid(self, form):
-    #     success_url = self.get_success_url()
-    #     self.object.archived = True
-    #     self.object.save()
-    #     return HttpResponseRedirect(success_url)
 
 
 class OrderCreateView(CreateView):
-    # queryset = (
-    #     Order.objects
-    #     .select_related("user")
-    #     .prefetch_related("products").all()
-    # )
     model = Order
     fields = "delivery_address", "promocode", "user", "products"
     template_name_suffix = "_create_form"
     success_url = reverse_lazy("shopapp:orders_list")
-
-    # def get_success_url(self):
-    #     return reverse(
-    #         "shopapp:orders_list",
-    #     )
-
