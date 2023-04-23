@@ -20,6 +20,9 @@
         <div>
             Archived: {{ product.archived }}
         </div>
+    <div>
+        Created: {{ prodect.created_by }}
+    </div>
     </div>
     <div>
         <a href="{% url 'shopapp:product_update' pk=product.pk %}">Update product</a>

@@ -14,6 +14,8 @@ class Product(models.Model):
     discount = models.SmallIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     archived = models.BooleanField(default=False)
+    created_by = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=1)
+    # created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # @property
     # def description_short(self):
