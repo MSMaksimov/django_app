@@ -1,3 +1,4 @@
+import myauth.models
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -14,14 +15,7 @@ class Product(models.Model):
     discount = models.SmallIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     archived = models.BooleanField(default=False)
-    created_by = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=1)
-    # created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    # @property
-    # def description_short(self):
-    #     if len(self.description) < 50:
-    #         return self.description
-    #     return self.description[:48] + "..."
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='created_by', null=True)
 
     def __str__(self):
         return f"Product(pk={self.pk}, name={self.name!r})"
