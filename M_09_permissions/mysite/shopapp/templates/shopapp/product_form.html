@@ -6,17 +6,23 @@
 
 {% block body %}
     <h1>Create a new product</h1>
+    {% if perms.shopapp.add_product %}
+        <div>
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+                <button type="submit">
+                    Create
+                </button>
+            </form>
+        </div>
+    {% else %}
+        <h1>You do not have the required permission</h1>
+    {% endif %}
+
     <div>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">
-                Create
-            </button>
-        </form>
-    </div>
-    <div>
-    <a href="{% url 'shopapp:products_list' %}"
-    >Back to products list</a>
+        <a href="{% url 'shopapp:products_list' %}"
+        >Back to products list</a>
     </div>
 {% endblock %}

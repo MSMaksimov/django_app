@@ -21,7 +21,7 @@
             Archived: {{ product.archived }}
         </div>
     <div>
-        Created: {{ prodect.created_by_id }}
+        Created: {% firstof product.created_by 'anonymus' %}
     </div>
     </div>
     <div>

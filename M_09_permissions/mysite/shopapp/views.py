@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-
+from django.contrib.auth.models import User
 from .models import Product, Order
 from .forms import OrderForm, GroupForm
 
@@ -64,21 +64,26 @@ class ProductsListView(ListView):
 #     success_url = reverse_lazy("shopapp:products_list")
 
 
-class ProductCreateView(PermissionRequiredMixin, CreateView):
-    permission_required = "shopapp.add_product"
+class ProductCreateView(CreateView):
+    # permission_required = "shopapp.add_product"
     model = Product
     fields = "name", "price", "description", "discount"
     # form_class = ProductForm
     success_url = reverse_lazy("shopapp:products_list")
 
     def form_valid(self, form):
-        instance = form.save(commit=False)
-        instance.user = self.request.user
-        instance.save()
-        return HttpResponseRedirect(self.success_url)
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(UserPassesTestMixin, UpdateView):
+    def test_func(self):
+        return (
+            self.request.user.is_superuser
+            or (self.request.user.has_perm("shopapp.change_product")
+                and self.request.user == self.get_object().created_by)
+        )
+
     model = Product
     fields = "name", "price", "description", "discount"
     template_name_suffix = "_update_form"
