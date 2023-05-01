@@ -136,3 +136,22 @@ class ProductExportViewTestCase(TestCase):
             products_data["products"],
             expected_data,
         )
+
+
+class OrderDetailViewTestCase(TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        permission_view = Permission.objects.get(codename="view_order")
+        cls.user = User.objects.create_user(username="test_user", password="qwerty")
+        cls.user.user_permissions.add(permission_view)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.user.delete()
+        cls.order.delete()
+
+    def setUp(self) -> None:
+        # self.product_name = "".join(choices(ascii_letters, k=10))
+        # Product.objects.filter(name=self.product_name).delete()
+        self.client.force_login(self.user)
