@@ -68,3 +68,18 @@ class ProductDetailsViewTestCase(TestCase):
             reverse("shopapp:products_details", kwargs={"pk": self.product.pk})
         )
         self.assertContains(response, self.product.name)
+
+
+class ProductsListViewTestCase(TestCase):
+    fixtures = [
+        'product-fixture.json',
+    ]
+
+    def test_products(self):
+        response = self.client.get(reverse("shopapp:products_list"))
+        self.assertQuerysetEqual(
+            qs=Product.objects.filter(archived=False).all(),
+            values=(p.pk for p in response.context["products"]),
+            transform=lambda p: p.pk,
+        )
+        self.assertTemplateUsed(response, 'shopapp/products-list.html')
