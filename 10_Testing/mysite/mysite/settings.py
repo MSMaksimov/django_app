@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     'shopapp.apps.ShopappConfig',
     'myauth.apps.MyauthConfig',
-    'requestdataapp.apps.RequestdataappConfig',
+    # 'requestdataapp.apps.RequestdataappConfig',
 
 ]
 
