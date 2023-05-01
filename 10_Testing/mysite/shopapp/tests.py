@@ -47,3 +47,24 @@ class ProductCreateViewTestCase(TestCase):
             Product.objects.filter(name=self.product_name).exists()
         )
 
+
+class ProductDetailsViewTestCase(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.product = Product.objects.create(name="Best Product")
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.product.delete()
+
+    def test_get_product(self):
+        response = self.client.get(
+            reverse("shopapp:products_details", kwargs={"pk": self.product.pk})
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_product_and_check_content(self):
+        response = self.client.get(
+            reverse("shopapp:products_details", kwargs={"pk": self.product.pk})
+        )
+        self.assertContains(response, self.product.name)
