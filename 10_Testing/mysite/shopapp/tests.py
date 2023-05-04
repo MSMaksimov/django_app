@@ -187,8 +187,6 @@ class OrdersExportTestCase(TestCase):
     def setUp(self) -> None:
         self.client.force_login(self.user)
 
-
-
     def test_get_orders_view(self):
         response = self.client.get(
             reverse("shopapp:orders-export")
@@ -206,5 +204,9 @@ class OrdersExportTestCase(TestCase):
             }
             for order in orders
         ]
-        self.assertEqual(response.status_code, 200)
-        # self.assertEqual(response.headers['content-type', 'application/json'])
+
+        orders_data = response.json()
+        self.assertEqual(
+            orders_data["orders"],
+            expected_data,
+        )
