@@ -1,4 +1,6 @@
 from timeit import default_timer
+
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
@@ -167,7 +169,14 @@ class ProductsDataExportView(View):
         return JsonResponse({"products": products_data})
 
 
-class OrdersExportView(View):
+class OrdersExportView(UserPassesTestMixin, View):
+
+    def test_func(self):
+        return (
+            self.request.user.is_staff
+            or self.request.user.is_superuser
+        )
+
     def get(self, request: HttpRequest) -> JsonResponse:
         orders = Order.objects.order_by("pk").all()
         orders_data = [
@@ -183,3 +192,4 @@ class OrdersExportView(View):
         ]
 
         return JsonResponse({"orders": orders_data})
+
