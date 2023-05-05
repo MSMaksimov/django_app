@@ -178,10 +178,12 @@ class OrdersExportTestCase(TestCase):
 
     @classmethod
     def setUpClass(cls):
+        super().setUpClass()
         cls.user = User.objects.create_user(username="test_user", password="qwerty", is_staff=True)
 
     @classmethod
     def tearDownClass(cls):
+        super().tearDownClass()
         cls.user.delete()
 
     def setUp(self) -> None:
