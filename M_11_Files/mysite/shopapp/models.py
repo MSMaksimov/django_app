@@ -28,3 +28,4 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     # archived = models.BooleanField(default=False)
     products = models.ManyToManyField(Product, related_name="orders")
+    receipt = models.FileField(null=True, upload_to='orders/receipts/')
