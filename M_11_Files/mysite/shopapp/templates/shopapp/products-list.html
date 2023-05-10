@@ -10,10 +10,11 @@
     <div>
     {% for product in products %}
       <div>
-        <p><a href="{% url 'shopapp:product_details' pk=product.pk %}"
+        <p><a href="{% url 'shopapp:products_details' pk=product.pk %}"
         >Name: {{ product.name }}</a></p>
         <p>Price: {{ product.price }}</p>
         <p>Discount: {% firstof product.discount 'no discount' %}</p>
+        <p>Created: {% firstof product.created_by 'anonymus' %}</p>
       </div>
     {% endfor %}
 
@@ -22,9 +23,8 @@
   {% else %}
     <h3>No products yet</h3>
   {% endif %}
-
-  <div>
+    <div>
     <a href="{% url 'shopapp:product_create' %}"
-      >Create a new product</a>
-  </div>
+    >Create a new product</a>
+    </div>
 {% endblock %}
