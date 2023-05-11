@@ -1,6 +1,13 @@
-import myauth.models
+# import myauth.models
 from django.contrib.auth.models import User
 from django.db import models
+
+
+def product_preview_directory_path(instance: "Product", filename: str) -> str:
+    return "products/product_{pk}/preview/{filename}".format(
+        pk=instance.pk,
+        filename=filename,
+    )
 
 
 class Product(models.Model):
@@ -16,6 +23,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     archived = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='created by', null=True)
+    preview = models.ImageField(null=True, blank=True, upload_to=product_preview_directory_path)
 
     def __str__(self):
         return f"Product(pk={self.pk}, name={self.name!r})"
