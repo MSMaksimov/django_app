@@ -59,13 +59,19 @@ class ProductsListView(ListView):
 class ProductCreateView(CreateView):
     # permission_required = "shopapp.add_product"
     model = Product
-    fields = "name", "price", "description", "discount", "preview"
-    # form_class = ProductForm
+    # fields = "name", "price", "description", "discount", "preview"
+    form_class = ProductForm
     success_url = reverse_lazy("shopapp:products_list")
 
     def form_valid(self, form):
+        response = super().form_valid(form)
         form.instance.created_by = self.request.user
-        return super().form_valid(form)
+        for image in form.files.getlist("images"):
+            ProductImage.objects.create(
+                product=self.object,
+                image=image,
+            )
+        return response
 
 
 class ProductUpdateView(UserPassesTestMixin, UpdateView):
@@ -88,7 +94,7 @@ class ProductUpdateView(UserPassesTestMixin, UpdateView):
         )
 
     def form_valid(self, form):
-        response = super().form_valid()
+        response = super().form_valid(form)
         for image in form.files.getlist("images"):
             ProductImage.objects.create(
                 product=self.object,
