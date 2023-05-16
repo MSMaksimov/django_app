@@ -9,8 +9,8 @@ from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Product, Order
-from .forms import OrderForm, GroupForm
+from .models import Product, Order, ProductImage
+from .forms import OrderForm, GroupForm, ProductForm
 
 
 class ShopIndexView(View):
@@ -77,7 +77,8 @@ class ProductUpdateView(UserPassesTestMixin, UpdateView):
         )
 
     model = Product
-    fields = "name", "price", "description", "discount", "preview"
+    # fields = "name", "price", "description", "discount", "preview"
+    form_class = ProductForm
     template_name_suffix = "_update_form"
 
     def get_success_url(self):
@@ -85,6 +86,15 @@ class ProductUpdateView(UserPassesTestMixin, UpdateView):
             "shopapp:products_details",
             kwargs={"pk": self.object.pk},
         )
+
+    def form_valid(self, form):
+        response = super().form_valid()
+        for image in form.files.getlist("images"):
+            ProductImage.objects.create(
+                product=self.object,
+                image=image,
+            )
+        return response
 
 
 class ProductDeleteView(DeleteView):

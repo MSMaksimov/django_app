@@ -12,10 +12,14 @@ class GroupForm(ModelForm):
         fields = ["name"]
 
 
-# class ProductForm(forms.ModelForm):
-#     class Meta:
-#         model = Product
-#         fields = "name", "price", "description", "discount"
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = "name", "price", "description", "discount", "preview"
+
+    images = forms.ImageField(
+        widget=forms.ClearableFileInput(attrs={"multiple": True})
+    )
 
 
 class OrderForm(forms.ModelForm):
