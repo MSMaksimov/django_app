@@ -20,12 +20,16 @@
         <p>Lastname: {{ user.last_name }}</p>
         <p>Email: {{ user.email }}</p>
         <p>Bio: {{ user.profile.bio }}</p>
+{#        <div>#}
+{#            <form method="post" enctype="multipart/form-data">#}
+{#                {% csrf_token %}#}
+{#                {{ form.as_p }}#}
+{#                <button type="submit">Upload avatar</button>#}
+{#            </form>#}
+{#        </div>#}
         <div>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Upload avatar</button>
-            </form>
+        <a href="{% url 'myauth:update-avatar' %}"
+        >Update Avatar</a>
         </div>
     {% else %}
         <h2>User is anonymous</h2>

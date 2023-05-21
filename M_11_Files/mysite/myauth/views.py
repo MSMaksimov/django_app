@@ -5,7 +5,8 @@ from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
 # from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.urls import reverse_lazy
+from django.template.context_processors import request
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import TemplateView, CreateView, UpdateView
 
@@ -18,24 +19,30 @@ class AboutMeView(TemplateView):
 
 
 class UpdateAvatar(UpdateView):
-    context_object_name = "about"
+    model = Profile
     form_class = UpdateProfileForm
-    queryset = User.objects.get_queryset()
     template_name = "myauth/update-avatar.html"
+    # user = request(user_passes_test(id(object)))
+    # fields = "avatar"
+    context_object_name = "about"
 
-    def form_valid(self, form):
-        # Profile.objects.create(
-        #     user=self.object,
-        #     avatar=form.files.get("avatar")
-        # )
-        self.form.instance.user = request.user
-        return super().form_valid(form)
+    # queryset = User.objects.get_queryset()
 
-    def get_success_url(self):
-        return reverse_lazy(
-            "myauth:about-me",
-            kwargs={"pk": self.object.id},
-        )
+
+    # def form_valid(self, form):
+    #     Profile.objects.update(
+    #         user=self.object.pk,
+    #         avatar=form.files.get("avatar")
+    #     )
+    #     # self.form.instance.user = request.user
+    #     return super().form_valid(form)
+
+    # def get_success_url(self):
+    #     return reverse(
+    #         "myauth:about-me",
+    #         kwargs={"pk": self.object.pk},
+    #     )
+
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
