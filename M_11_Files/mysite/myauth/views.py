@@ -1,19 +1,41 @@
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.urls import reverse, reverse_lazy
+# from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 
+from .forms import UpdateProfileForm
 from .models import Profile
 
 
 class AboutMeView(TemplateView):
     template_name = "myauth/about-me.html"
 
+
+class UpdateAvatar(UpdateView):
+    context_object_name = "about"
+    form_class = UpdateProfileForm
+    queryset = User.objects.get_queryset()
+    template_name = "myauth/update-avatar.html"
+
+    def form_valid(self, form):
+        # Profile.objects.create(
+        #     user=self.object,
+        #     avatar=form.files.get("avatar")
+        # )
+        self.form.instance.user = request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "myauth:about-me",
+            kwargs={"pk": self.object.id},
+        )
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
