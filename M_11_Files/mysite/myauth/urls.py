@@ -7,18 +7,16 @@ from .views import (
     set_cookie_view,
     set_sessions_view,
     get_sessions_view,
-    # logout_view,
     MyLogoutView,
     AboutMeView,
     RegisterView,
     FooBarView,
-    UpdateAvatar,
+    change_avatar,
 )
 
 app_name = "myauth"
 
 urlpatterns = [
-    # path("login/", login_view, name="login")
     path("login/",
          LoginView.as_view(
              template_name="myauth/login.html",
@@ -26,15 +24,14 @@ urlpatterns = [
          ),
          name="login",
          ),
-    # path("logout/", logout_view, name="logout"),
+
     path("logout/", MyLogoutView.as_view(), name="logout"),
     path("about-me/", AboutMeView.as_view(), name="about-me"),
-    path("about-me/update", UpdateAvatar.as_view(), name="update-avatar"),
+    path('change-avatar/', change_avatar, name='change_avatar'),
     path("register/", RegisterView.as_view(), name="register"),
     path("cookie/get/", get_cookie_view, name="cookie-get"),
     path("cookie/set/", set_cookie_view, name="cookie-set"),
     path("session/set/", set_sessions_view, name="session-set"),
     path("session/get/", get_sessions_view, name="session-get"),
-
     path("foo-bar/", FooBarView.as_view(), name="foo-bar")
 ]

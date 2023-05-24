@@ -1,16 +1,14 @@
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
-# from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.template.context_processors import request
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import TemplateView, CreateView, UpdateView
-
-from .forms import UpdateProfileForm
+from django.views.generic import TemplateView, CreateView
+from django.contrib.auth.decorators import login_required
+from .forms import ProfilePictureForm
 from .models import Profile
 
 
@@ -18,30 +16,16 @@ class AboutMeView(TemplateView):
     template_name = "myauth/about-me.html"
 
 
-class UpdateAvatar(UpdateView):
-    model = Profile
-    form_class = UpdateProfileForm
-    template_name = "myauth/update-avatar.html"
-    # user = request(user_passes_test(id(object)))
-    # fields = "avatar"
-    context_object_name = "about"
-
-    # queryset = User.objects.get_queryset()
-
-
-    # def form_valid(self, form):
-    #     Profile.objects.update(
-    #         user=self.object.pk,
-    #         avatar=form.files.get("avatar")
-    #     )
-    #     # self.form.instance.user = request.user
-    #     return super().form_valid(form)
-
-    # def get_success_url(self):
-    #     return reverse(
-    #         "myauth:about-me",
-    #         kwargs={"pk": self.object.pk},
-    #     )
+@login_required
+def change_avatar(request):
+    if request.method == 'POST':
+        form = ProfilePictureForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('myauth:about-me')
+    else:
+        form = ProfilePictureForm(instance=request.user.profile)
+    return render(request, 'myauth/change_avatar.html', {'form': form})
 
 
 class RegisterView(CreateView):

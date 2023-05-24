@@ -9,8 +9,8 @@
     {% if user.is_authenticated %}
         <h2>Detail</h2>
         <div>
-        {% if user.avatar %}
-            <img src="{{ user.avatar.url }}" alt="{{ user.avatar.name }}">
+        {% if user.profile.avatar %}
+            <img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.avatar.name }}">
         {% else %}
             <h3>No avatar uploaded yet</h3>
         {% endif %}
@@ -20,16 +20,9 @@
         <p>Lastname: {{ user.last_name }}</p>
         <p>Email: {{ user.email }}</p>
         <p>Bio: {{ user.profile.bio }}</p>
-{#        <div>#}
-{#            <form method="post" enctype="multipart/form-data">#}
-{#                {% csrf_token %}#}
-{#                {{ form.as_p }}#}
-{#                <button type="submit">Upload avatar</button>#}
-{#            </form>#}
-{#        </div>#}
         <div>
-        <a href="{% url 'myauth:update-avatar' %}"
-        >Update Avatar</a>
+        <a href="{% url 'myauth:change_avatar' %}"
+        >Update or add avatar</a>
         </div>
     {% else %}
         <h2>User is anonymous</h2>
