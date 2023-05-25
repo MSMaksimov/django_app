@@ -3,11 +3,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from .forms import ProfilePictureForm
 from .models import Profile
@@ -43,12 +43,19 @@ class ProfilePictureView(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
 class UserListView(ListView):
     model = User
-    template_name = 'myauth/user_list.html'
+    template_name = 'myauth/users_list.html'
     context_object_name = 'users'
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.exclude(id=self.request.user.id)
+        queryset = super(UserListView, self).get_queryset()
+        return queryset
+
+
+class UserDetailView(DetailView):
+    model = get_user_model()
+    template_name = 'myauth/user_detail.html'
+    context_object_name = 'user'
+
 
 class RegisterView(CreateView):
     form_class = UserCreationForm

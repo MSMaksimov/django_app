@@ -1,0 +1,21 @@
+{% extends 'myauth/base.html' %}
+
+{% block title %}
+    User detail
+{% endblock %}
+
+{% block body %}
+  <h1>{{ user.username }}</h1>
+    <div>
+    {% if user.profile.avatar %}
+        <img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.avatar.name }}">
+    {% else %}
+        <h3>No avatar uploaded yet</h3>
+    {% endif %}
+    </div>
+    <p>Username: {{ user.username }}</p>
+    <p>Firstname: {{ user.first_name }}</p>
+    <p>Lastname: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Bio: {{ user.profile.bio }}</p>
+{% endblock %}
