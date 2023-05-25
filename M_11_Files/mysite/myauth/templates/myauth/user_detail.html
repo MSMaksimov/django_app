@@ -18,4 +18,12 @@
     <p>Lastname: {{ user.last_name }}</p>
     <p>Email: {{ user.email }}</p>
     <p>Bio: {{ user.profile.bio }}</p>
+    <div>
+        <a href="{% url 'myauth:change_avatar' %}"
+        >Update or add avatar</a>
+    </div>
+    <div>
+        <a href="{% url 'myauth:users_list' %}"
+        >Back to users list</a>
+    </div>
 {% endblock %}

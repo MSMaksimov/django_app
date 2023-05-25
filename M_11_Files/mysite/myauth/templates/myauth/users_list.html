@@ -3,14 +3,18 @@
 Users list
 {% endblock %}
 {% block body %}
-  <h1>List of Registered Users</h1>
+  <h1>List of registered users:</h1>
   <ul>
     {% for user in object_list %}
       <li>
         {% if user.profile.avatar %}
             <img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.avatar.name }}">
         {% endif %}
-        {{ user.username }}
+{#      {% if user.id == request.user.id %}#}
+{#        <p><a href="{% url 'myauth:about-me' %}">Name: {{ user.username }}</a></p>#}
+{#      {% else %}#}
+        <p><a href="{% url 'myauth:user_detail' pk=user.pk %}">Name: {{ user.username }}</a></p>
+{#      {% endif %}#}
       </li>
     {% endfor %}
   </ul>

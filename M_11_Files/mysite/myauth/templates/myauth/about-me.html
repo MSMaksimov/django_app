@@ -26,5 +26,9 @@
         </div>
     {% else %}
         <h2>User is anonymous</h2>
-    {% endif %} 
+    {% endif %}
+    <div>
+        <a href="{% url 'myauth:users_list' %}"
+        >Back to users list</a>
+    </div>
 {% endblock %}
