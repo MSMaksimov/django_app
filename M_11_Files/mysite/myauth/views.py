@@ -1,32 +1,54 @@
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 from django.contrib.auth.decorators import login_required
 from .forms import ProfilePictureForm
 from .models import Profile
+from django.contrib.auth.models import User
+from django.views.generic.edit import FormView
 
 
 class AboutMeView(TemplateView):
     template_name = "myauth/about-me.html"
 
 
-@login_required
-def change_avatar(request):
-    if request.method == 'POST':
-        form = ProfilePictureForm(request.POST, request.FILES, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            return redirect('myauth:about-me')
-    else:
-        form = ProfilePictureForm(instance=request.user.profile)
-    return render(request, 'myauth/change_avatar.html', {'form': form})
+class ProfilePictureView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    template_name = 'myauth/change_avatar.html'
+    form_class = ProfilePictureForm
+    success_url = reverse_lazy('myauth:about-me')
 
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.request.user.profile
+        return kwargs
+
+    def test_func(self):
+        profile = self.get_object()
+        return self.request.user.is_authenticated and (self.request.user.is_staff or profile.user == self.request.user)
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+
+class UserListView(ListView):
+    model = User
+    template_name = 'myauth/user_list.html'
+    context_object_name = 'users'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.exclude(id=self.request.user.id)
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
