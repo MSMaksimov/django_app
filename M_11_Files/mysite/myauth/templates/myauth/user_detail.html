@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block body %}
-  <h1>{{ user.username }}</h1>
+    <h1>Name: {{ user.username }}</h1>
     <div>
-    {% if user.profile.avatar %}
-        <img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.avatar.name }}">
-    {% else %}
-        <h3>No avatar uploaded yet</h3>
-    {% endif %}
+        {% if user.profile.avatar %}
+            <img src="{{ user.profile.avatar.url }}" width="100" height="100" alt="{{ user.profile.avatar.name }}">
+        {% else %}
+            <h3>No avatar uploaded yet</h3>
+        {% endif %}
     </div>
     <p>Username: {{ user.username }}</p>
     <p>Firstname: {{ user.first_name }}</p>
@@ -19,8 +19,10 @@
     <p>Email: {{ user.email }}</p>
     <p>Bio: {{ user.profile.bio }}</p>
     <div>
-        <a href="{% url 'myauth:change_avatar' %}"
-        >Update or add avatar</a>
+        {% if request.user.is_staff  %}
+            <a href="{% url 'myauth:update_avatar' %}"
+            >Update or add avatar</a>
+        {% endif %}
     </div>
     <div>
         <a href="{% url 'myauth:users_list' %}"

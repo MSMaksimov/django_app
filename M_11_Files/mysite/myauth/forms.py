@@ -12,7 +12,5 @@ class ProfilePictureForm(forms.ModelForm):
         if avatar:
             if avatar.size > 1024 * 1024:
                 raise forms.ValidationError('File size too large (maximum is 1MB).')
-            # if avatar.content_type not in ['image/jpeg', 'image/png']:
-            #     raise forms.ValidationError('Invalid file type (only JPEG and PNG are accepted).')
         return avatar
 

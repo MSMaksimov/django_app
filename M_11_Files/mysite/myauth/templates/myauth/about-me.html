@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block body %}
-    <h1>User info</h1>
+    <h1>Authorized User Information</h1>
     {% if user.is_authenticated %}
         <h2>Detail</h2>
         <div>
         {% if user.profile.avatar %}
-            <img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.avatar.name }}">
+            <img src="{{ user.profile.avatar.url }}" width="100" height="100" alt="{{ user.profile.avatar.name }}">
         {% else %}
             <h3>No avatar uploaded yet</h3>
         {% endif %}

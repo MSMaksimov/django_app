@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, get_user_model
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView, DetailView
@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ProfilePictureForm
 from .models import Profile
 from django.contrib.auth.models import User
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 
 
 class AboutMeView(TemplateView):
@@ -39,6 +39,22 @@ class ProfilePictureView(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+
+class AvatarUpdateView(UserPassesTestMixin, UpdateView):
+    model = Profile
+    form_class = ProfilePictureForm
+    template_name = 'myauth/avatar_update.html'
+
+    def get_object(self, queryset=None):
+        user = get_object_or_404(User, pk=self.kwargs.get('user_id'))
+        return Profile.objects.get_or_create(user=user)[0]
+
+    def get_success_url(self):
+        return reverse_lazy('myauth:user_detail', kwargs={'pk': self.kwargs.get('user_id')})
+
+    def test_func(self):
+        return self.request.user.is_staff or self.request.user.pk == int(self.kwargs.get('user_id'))
 
 
 class UserListView(ListView):

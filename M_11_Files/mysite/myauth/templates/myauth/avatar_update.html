@@ -1,0 +1,24 @@
+{% extends "myauth/base.html" %}
+{% block title %}
+Update profile picture
+{% endblock %}
+{% block content %}
+<h1>Update profile picture for user {{ object.user }}</h1>
+{% if form.errors %}
+  <div class="alert alert-danger" role="alert">
+  {% for field, error_msgs in form.errors.items %}
+  <ul>
+    {% for error_msg in error_msgs %}
+      <li>{{ error_msg }}</li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+{% endblock %}
