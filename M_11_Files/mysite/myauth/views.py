@@ -50,11 +50,25 @@ class AvatarUpdateView(UserPassesTestMixin, UpdateView):
         user = get_object_or_404(User, pk=self.kwargs.get('user_id'))
         return Profile.objects.get_or_create(user=user)[0]
 
+    # def get_object(self, queryset=None):
+    #     user = get_object_or_404(User, pk=self.kwargs.get('user_id'))
+    #     profile, created = Profile.objects.get_or_create(user=user)
+    #     if created:
+    #         # profile was just created, redirect to edit profile page
+    #         return redirect('myauth:user_update')
+    #     return profile
+
     def get_success_url(self):
         return reverse_lazy('myauth:user_detail', kwargs={'pk': self.kwargs.get('user_id')})
 
     def test_func(self):
         return self.request.user.is_staff or self.request.user.pk == int(self.kwargs.get('user_id'))
+
+    # def get_context_data(self, **kwargs):
+    #     print('AvatarUpdateView.get_context_data called')
+    #     context = super().get_context_data(**kwargs)
+    #     context['form'] = self.get_form()
+    #     return context
 
 
 class UserListView(ListView):
