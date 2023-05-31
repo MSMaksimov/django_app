@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 12:57+0500\n"
+"POT-Creation-Date: 2023-05-31 21:18+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,3 +38,36 @@ msgstr "Английский"
 #: .\mysite\settings.py:130
 msgid "Russian"
 msgstr "Русский"
+
+#: .\shopapp\templates\shopapp\products-list.html:6
+msgid "Products list"
+msgstr "Список товаров"
+
+#: .\shopapp\templates\shopapp\products-list.html:10
+msgid "Products"
+msgstr "Товары"
+
+#: .\shopapp\templates\shopapp\products-list.html:16
+msgctxt "product name"
+msgid "Name"
+msgstr "Название"
+
+#: .\shopapp\templates\shopapp\products-list.html:17
+msgid "Price"
+msgstr "Цена"
+
+#: .\shopapp\templates\shopapp\products-list.html:18
+msgid "no discount"
+msgstr "Скидка не предусмотрена"
+
+#: .\shopapp\templates\shopapp\products-list.html:19
+msgid "Discount"
+msgstr "Скидка"
+
+#: .\shopapp\templates\shopapp\products-list.html:30
+msgid "No products yet"
+msgstr "Товары еще не добавлены"
+
+#: .\shopapp\templates\shopapp\products-list.html:35
+msgid "Create a new product"
+msgstr "Создать новый товар"
