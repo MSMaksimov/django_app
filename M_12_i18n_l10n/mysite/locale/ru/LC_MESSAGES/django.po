@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-01 13:40+0500\n"
+"POT-Creation-Date: 2023-06-01 14:08+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,8 @@ msgstr "Английский"
 msgid "Russian"
 msgstr "Русский"
 
-#: .\shopapp\models.py:17
+#: .\shopapp\models.py:17 .\shopapp\templates\shopapp\products-details.html:7
+#: .\shopapp\templates\shopapp\products-details.html:11
 msgid "Product"
 msgstr "Товар"
 
@@ -54,6 +55,44 @@ msgstr "Заказ"
 #: .\shopapp\models.py:49
 msgid "Orders"
 msgstr "Заказы"
+
+#: .\shopapp\templates\shopapp\products-details.html:13
+msgid "Description"
+msgstr "Описание"
+
+#: .\shopapp\templates\shopapp\products-details.html:14
+#: .\shopapp\templates\shopapp\products-list.html:24
+msgid "Price"
+msgstr "Цена"
+
+#: .\shopapp\templates\shopapp\products-details.html:15
+#: .\shopapp\templates\shopapp\products-list.html:26
+msgid "Discount"
+msgstr "Скидка"
+
+#: .\shopapp\templates\shopapp\products-details.html:16
+msgid "Archived"
+msgstr "Архивирован"
+
+#: .\shopapp\templates\shopapp\products-details.html:22
+msgid "Images"
+msgstr "Изображения"
+
+#: .\shopapp\templates\shopapp\products-details.html:30
+msgid "No images uploaded yet"
+msgstr "Изображения еще не загружены"
+
+#: .\shopapp\templates\shopapp\products-details.html:37
+msgid "Update product"
+msgstr "Отредактировать товар"
+
+#: .\shopapp\templates\shopapp\products-details.html:41
+msgid "Archive product"
+msgstr "Архивировать товар"
+
+#: .\shopapp\templates\shopapp\products-details.html:45
+msgid "Back to products list"
+msgstr "Назад к списку товаров"
 
 #: .\shopapp\templates\shopapp\products-list.html:6
 msgid "Products list"
@@ -87,17 +126,9 @@ msgctxt "product name"
 msgid "Name"
 msgstr "Название"
 
-#: .\shopapp\templates\shopapp\products-list.html:24
-msgid "Price"
-msgstr "Цена"
-
 #: .\shopapp\templates\shopapp\products-list.html:25
 msgid "no discount"
 msgstr "Скидка не предусмотрена"
-
-#: .\shopapp\templates\shopapp\products-list.html:26
-msgid "Discount"
-msgstr "Скидка"
 
 #: .\shopapp\templates\shopapp\products-list.html:35
 msgid "Create a new product"
