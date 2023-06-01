@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-31 21:18+0500\n"
+"POT-Creation-Date: 2023-06-01 07:58+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,10 +62,16 @@ msgstr "No discount"
 msgid "Discount"
 msgstr "Discount"
 
-#: .\shopapp\templates\shopapp\products-list.html:30
-msgid "No products yet"
-msgstr "No products yet"
-
-#: .\shopapp\templates\shopapp\products-list.html:35
+#: .\shopapp\templates\shopapp\products-list.html:28
 msgid "Create a new product"
 msgstr "Create a new product"
+
+#: .\shopapp\templates\shopapp\products-list.html:34
+#, python-format
+msgid ""
+"\n"
+"        <h3>No products yet</h3>\n"
+"        <a href=\"%(create_product_url)s\"\n"
+"        >Create a new one</a>\n"
+"        "
+msgstr ""
