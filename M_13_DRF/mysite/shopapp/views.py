@@ -6,9 +6,16 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from rest_framework.viewsets import ModelViewSet
 
 from .forms import ProductForm
 from .models import Product, Order, ProductImage
+from .serializers import ProductSerializer
+
+
+class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
 class ShopIndexView(View):
