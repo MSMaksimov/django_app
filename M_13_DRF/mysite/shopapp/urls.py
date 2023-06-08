@@ -11,13 +11,15 @@ from .views import (
     ProductUpdateView,
     ProductDeleteView,
     ProductsDataExportView,
-    ProductViewSet
+    ProductViewSet,
+    OrderViewSet,
 )
 
 app_name = "shopapp"
 
 routers = DefaultRouter()
 routers.register("products", ProductViewSet)
+routers.register("orders", OrderViewSet)
 
 urlpatterns = [
     path("", ShopIndexView.as_view(), name="index"),
