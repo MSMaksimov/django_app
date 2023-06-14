@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
-from blogapp.models import Article, Author
+from blogapp.models import Article, Author, Tag, Category
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -30,3 +30,16 @@ class AuthorCreateView(CreateView):
     fields = ['name', 'bio']
     success_url = reverse_lazy("blogapp:articles")
 
+
+class TagCreateView(CreateView):
+    model = Tag
+    template_name = 'blogapp/tag_create.html'
+    fields = ['name']
+    success_url = reverse_lazy("blogapp:articles")
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    template_name = 'blogapp/category_create.html'
+    fields = ['name']
+    success_url = reverse_lazy("blogapp:articles")
