@@ -1,3 +1,4 @@
+import logging
 from timeit import default_timer
 
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
@@ -14,6 +15,7 @@ from .forms import ProductForm
 from .models import Product, Order, ProductImage
 from .serializers import ProductSerializer
 
+log = logging.getLogger(__name__)
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
