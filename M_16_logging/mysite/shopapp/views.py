@@ -51,6 +51,8 @@ class ShopIndexView(View):
             "time_running": default_timer(),
             "products": products,
         }
+        log.debug("Products for shop index: %s", products)
+        log.info("Rendering shop index")
         return render(request, 'shopapp/shop-index.html', context=context)
 
 
