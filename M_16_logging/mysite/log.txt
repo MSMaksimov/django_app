@@ -1,1 +1,4 @@
-2023-06-17 16:09:49,570 [INFO] shopapp.views: Rendering shop index
+2023-06-17 20:31:20,710 [INFO] django.utils.autoreload: /home/maxim/PycharmProjects/python_django/M_16_logging/mysite/mysite/settings.py changed, reloading.
+2023-06-17 20:31:21,623 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-17 20:31:39,490 [INFO] django.utils.autoreload: /home/maxim/PycharmProjects/python_django/M_16_logging/mysite/mysite/settings.py changed, reloading.
+2023-06-17 20:32:12,968 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
