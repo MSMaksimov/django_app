@@ -4,3 +4,10 @@
 2023-06-17 20:32:12,968 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2023-06-17 21:16:10,201 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2023-06-18 20:40:17,369 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-24 14:36:44,355 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-24 14:38:48,399 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-24 14:40:42,966 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-24 14:51:06,000 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-24 14:52:41,639 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-24 14:55:52,243 [WARNING] django.request: Not Found: /favicon.ico
+2023-06-24 14:57:10,272 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
