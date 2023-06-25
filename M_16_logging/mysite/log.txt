@@ -75,3 +75,11 @@
 2023-06-25 09:05:23,672 [DEBUG] PIL.PngImagePlugin: STREAM b'pHYs' 57 9
 2023-06-25 09:05:23,672 [DEBUG] PIL.PngImagePlugin: STREAM b'tEXt' 78 25
 2023-06-25 09:05:23,674 [DEBUG] PIL.PngImagePlugin: STREAM b'IDAT' 115 8192
+2023-06-25 17:21:20,762 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-25 17:26:22,471 [INFO] django.utils.autoreload: C:\home\maxim\environments\my_env\bin\M_16_logging\mysite\shopapp\forms.py changed, reloading.
+2023-06-25 17:26:23,989 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-25 17:26:49,926 [INFO] django.utils.autoreload: C:\home\maxim\environments\my_env\bin\M_16_logging\mysite\shopapp\forms.py changed, reloading.
+2023-06-25 17:26:50,729 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-25 17:32:06,935 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-25 17:53:48,911 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-25 19:14:28,293 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
