@@ -1,5 +1,7 @@
 FROM python:3.11
 
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /my_app
 
 COPY requirements.txt requirements.txt
