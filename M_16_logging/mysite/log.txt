@@ -88,3 +88,69 @@
 2023-06-25 20:33:45,892 [WARNING] django.request: Not Found: /
 2023-06-26 20:23:29,509 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2023-06-26 20:24:03,078 [WARNING] django.request: Not Found: /
+2023-06-26 20:26:46,842 [INFO] django.utils.autoreload: /mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py changed, reloading.
+2023-06-26 20:26:58,419 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 20:27:28,505 [INFO] django.utils.autoreload: /mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py changed, reloading.
+2023-06-26 20:27:39,926 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 20:28:09,619 [INFO] django.utils.autoreload: /mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py changed, reloading.
+2023-06-26 20:28:20,813 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 20:29:09,221 [INFO] django.utils.autoreload: /mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py changed, reloading.
+2023-06-26 20:29:21,018 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 20:29:42,635 [ERROR] django.request: Internal Server Error: /shop/products/export/
+Traceback (most recent call last):
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py", line 142, in get
+    name = elem["naeme"]
+KeyError: 'naeme'
+2023-06-26 20:29:44,605 [ERROR] django.request: Internal Server Error: /shop/products/export/
+Traceback (most recent call last):
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py", line 142, in get
+    name = elem["naeme"]
+KeyError: 'naeme'
+2023-06-26 20:31:11,146 [INFO] django.utils.autoreload: /mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py changed, reloading.
+2023-06-26 20:31:23,614 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 21:01:51,386 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 21:02:44,354 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): o4505427748847616.ingest.sentry.io:443
+2023-06-26 21:02:45,026 [DEBUG] urllib3.connectionpool: https://o4505427748847616.ingest.sentry.io:443 "POST /api/4505427772899328/envelope/ HTTP/1.1" 200 0
+2023-06-26 21:03:07,720 [INFO] django.utils.autoreload: /mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py changed, reloading.
+2023-06-26 21:03:07,866 [DEBUG] urllib3.connectionpool: https://o4505427748847616.ingest.sentry.io:443 "POST /api/4505427772899328/envelope/ HTTP/1.1" 200 0
+2023-06-26 21:03:20,253 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 21:03:41,182 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): o4505427748847616.ingest.sentry.io:443
+2023-06-26 21:03:41,876 [DEBUG] urllib3.connectionpool: https://o4505427748847616.ingest.sentry.io:443 "POST /api/4505427772899328/envelope/ HTTP/1.1" 200 0
+2023-06-26 21:03:41,950 [ERROR] django.request: Internal Server Error: /shop/products/export/
+Traceback (most recent call last):
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/sentry_sdk/integrations/django/views.py", line 84, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py", line 142, in get
+    name = elem["naeme"]
+KeyError: 'naeme'
+2023-06-26 21:03:42,748 [DEBUG] urllib3.connectionpool: https://o4505427748847616.ingest.sentry.io:443 "POST /api/4505427772899328/envelope/ HTTP/1.1" 200 0
+2023-06-26 21:04:42,898 [DEBUG] urllib3.connectionpool: https://o4505427748847616.ingest.sentry.io:443 "POST /api/4505427772899328/envelope/ HTTP/1.1" 200 0
+2023-06-26 21:06:12,900 [INFO] django.utils.autoreload: /mnt/c/home/maxim/environments/my_env/bin/M_16_logging/mysite/shopapp/views.py changed, reloading.
+2023-06-26 21:06:26,128 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 21:07:04,424 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): o4505427748847616.ingest.sentry.io:443
+2023-06-26 21:07:04,902 [DEBUG] urllib3.connectionpool: https://o4505427748847616.ingest.sentry.io:443 "POST /api/4505427772899328/envelope/ HTTP/1.1" 200 0
+2023-06-26 21:08:04,631 [DEBUG] urllib3.connectionpool: https://o4505427748847616.ingest.sentry.io:443 "POST /api/4505427772899328/envelope/ HTTP/1.1" 200 0
