@@ -86,3 +86,5 @@
 2023-06-25 20:24:44,119 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2023-06-25 20:24:56,885 [WARNING] django.request: Not Found: /
 2023-06-25 20:33:45,892 [WARNING] django.request: Not Found: /
+2023-06-26 20:23:29,509 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 20:24:03,078 [WARNING] django.request: Not Found: /
