@@ -90,11 +90,11 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         )
 
         reader = DictReader(csv_file)
+        # for row in reader:
+        #     print(row, "///", Product(**row).description)
 
-        products = [
-            Product(**row)
-            for row in reader
-        ]
+        products = [Product(**row) for row in reader]
+        # print(products)
         Product.objects.bulk_create(products)
         self.message_user(request, "Data from CSV was imported")
         return redirect("..")
