@@ -35,5 +35,3 @@ class LatestArticlesFeed(Feed):
     def item_description(self, item: Article):
         return item.body[:200]
 
-    def item_link(self, item: Article):
-        return reverse("blogapp:article", kwargs={"pk": item.pk})
