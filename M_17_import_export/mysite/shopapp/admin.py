@@ -142,11 +142,22 @@ class OrderAdmin(admin.ModelAdmin):
         )
         reader = DictReader(csv_file)
 
-        orders = [
-            Order(**row)
-            for row in reader
-        ]
-        Order.objects.bulk_create(orders)
+        for row in reader:
+            order, created = Order.objects.get_or_create(
+                promocode=row['promocode'],
+                user_id=row['user_id'],
+                delivery_address=row['delivery_address'],
+            )
+            products_list = row['products'].split()
+            for product in products_list:
+                product_obj = Product.objects.get(pk=product)
+                order.products.add(product_obj)
+
+        # orders = [
+        #     Order(**row)
+        #     for row in reader
+        # ]
+        # Order.objects.bulk_create(orders)
         self.message_user(request, "Data from CSV was imported")
         return redirect("..")
 

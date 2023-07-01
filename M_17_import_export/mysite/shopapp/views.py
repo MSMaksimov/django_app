@@ -1,6 +1,7 @@
 from csv import DictWriter
 from timeit import default_timer
 
+from django.contrib.syndication.views import Feed
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
@@ -132,6 +133,25 @@ class ProductUpdateView(UpdateView):
             )
 
         return response
+
+
+class LatestProductsFeed(Feed):
+    title = "Shop products (latest)"
+    description = "Updates on changes and addition shop`s products"
+    link = reverse_lazy("shopapp:products_list")
+
+    def items(self):
+        return (
+            Product.objects
+            .filter(archived=False)
+            .order_by("-created_at")[:5]
+        )
+
+    def item_title(self, item: Product):
+        return item.name
+
+    def item_description(self, item: Product):
+        return item.description[:200]
 
 
 class ProductDeleteView(DeleteView):
