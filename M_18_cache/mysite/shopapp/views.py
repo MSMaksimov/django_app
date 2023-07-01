@@ -80,6 +80,7 @@ class ProductViewSet(ModelViewSet):
         serializer = self.get_serializer(products, many=True)
         return Response(serializer.data)
 
+
 class ShopIndexView(View):
     def get(self, request: HttpRequest) -> HttpResponse:
         products = [
@@ -91,6 +92,7 @@ class ShopIndexView(View):
             "time_running": default_timer(),
             "products": products,
         }
+        print("shop index context", context)
         return render(request, 'shopapp/shop-index.html', context=context)
 
 
