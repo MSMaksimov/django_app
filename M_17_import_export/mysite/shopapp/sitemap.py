@@ -2,6 +2,8 @@ from django.contrib.sitemaps import Sitemap
 
 from .models import Product
 
+# from .
+
 
 class ShopSitemap(Sitemap):
     changefreq = 'never'
