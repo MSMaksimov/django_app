@@ -4,6 +4,7 @@ from timeit import default_timer
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
+from django.core.cache import cache
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.cache import cache_page
@@ -177,14 +178,18 @@ class OrderDetailView(PermissionRequiredMixin, DetailView):
 
 class ProductsDataExportView(View):
     def get(self, request: HttpRequest) -> JsonResponse:
-        products = Product.objects.order_by('pk').all()
-        products_data = [
-            {
-                "pk": product.pk,
-                "name": product.name,
-                "price": product.price,
-                "archived": product.archived,
-            }
-            for product in products
-        ]
+        cache_key = "products_data_export"
+        products_data = cache.get(cache_key)
+        if products_data is None:
+            products = Product.objects.order_by('pk').all()
+            products_data = [
+                {
+                    "pk": product.pk,
+                    "name": product.name,
+                    "price": product.price,
+                    "archived": product.archived,
+                }
+                for product in products
+            ]
+            cache.set(cache_key, products_data, 300)
         return JsonResponse({"products": products_data})
