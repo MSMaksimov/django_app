@@ -112,9 +112,10 @@ DATABASES = {
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": "/var/tmp/django_cache",
-        # "LOCATION": "c:/user.....", # такая настройка для windows
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        # "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        # "LOCATION": "/var/tmp/django_cache",
+        # # "LOCATION": "c:/user.....", # такая настройка для windows
     },
 }
 

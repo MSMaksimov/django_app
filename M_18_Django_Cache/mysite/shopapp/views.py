@@ -1,8 +1,9 @@
 from csv import DictWriter
 from timeit import default_timer
 
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.core.cache import cache
 from django.utils.decorators import method_decorator
@@ -174,6 +175,30 @@ class OrderDetailView(PermissionRequiredMixin, DetailView):
         .select_related("user")
         .prefetch_related("products")
     )
+
+
+class UserOrdersListView(LoginRequiredMixin, ListView):
+    model = Order
+    template_name = 'shopapp/user_orders.html'
+    context_object_name = 'orders'
+    paginate_by = 10
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        print("user_id:", user_id)
+        queryset = super().get_queryset().filter(user_id=user_id).order_by('-created_at')
+        print("queryset:", queryset)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.kwargs.get('user_id')
+        user = get_object_or_404(User, id=user_id)
+        orders = Order.objects.filter(user=user)  # Получить заказы пользователя
+        context['user'] = user
+        context['object_list'] = orders
+        print('Context:', context)
+        return context
 
 
 class ProductsDataExportView(View):

@@ -1,0 +1,18 @@
+{% extends "shopapp/base.html" %}
+
+{% block title %}
+    user_orders
+{% endblock %}
+
+{% block body %}
+    {% if object_list  %}
+        <h1>Пользователь {{ user.username }} выполнил следующие заказы:</h1>
+        <ul>
+            {% for order in object_list %}
+                <li>{{ order.created_at }} - {{ order.delivery_address }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>У пользователя {{ user.username }} ещё нет заказов.</h1>
+    {% endif %}
+{% endblock %}
