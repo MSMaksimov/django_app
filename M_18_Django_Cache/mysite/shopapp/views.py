@@ -196,7 +196,7 @@ class UserOrdersListView(LoginRequiredMixin, ListView):
         user_id = self.kwargs.get('user_id')
         user = get_object_or_404(User, id=user_id)
         self.owner = user
-        print('Current user:', self.owner)
+        # print('Current user:', self.owner)
         orders = Order.objects.filter(user=user)  # Получить заказы пользователя
         context['user'] = user
         context['object_list'] = orders
