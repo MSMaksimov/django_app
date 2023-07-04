@@ -2,6 +2,7 @@ from csv import DictWriter
 from timeit import default_timer
 
 from django.contrib.auth.models import User
+from django.core.serializers import serialize
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, reverse, get_object_or_404
 from django.urls import reverse_lazy
@@ -202,6 +203,23 @@ class UserOrdersListView(LoginRequiredMixin, ListView):
         context['object_list'] = orders
         # print('Context:', context)
         return context
+
+
+class ExportUserOrdersView(View):
+    def get(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        cache_key = f"user_orders_{user_id}"
+        cached_data = cache.get(cache_key)
+
+        if cached_data:
+            return JsonResponse(cached_data, safe=False)
+
+        orders = Order.objects.filter(user=user).order_by('pk')
+        serialized_orders = serialize('json', orders)
+
+        cache.set(cache_key, serialized_orders, 60*5)  # Cache data for 5 minutes
+
+        return JsonResponse(serialized_orders, safe=False)
 
 
 class ProductsDataExportView(View):

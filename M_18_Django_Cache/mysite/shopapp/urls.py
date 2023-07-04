@@ -14,6 +14,7 @@ from .views import (
     ProductsDataExportView,
     ProductViewSet,
     UserOrdersListView,
+    ExportUserOrdersView,
 )
 
 app_name = "shopapp"
@@ -34,4 +35,6 @@ urlpatterns = [
     path("orders/", OrdersListView.as_view(), name="orders_list"),
     path("orders/<int:pk>/", OrderDetailView.as_view(), name="order_details"),
     path('users/<int:user_id>/orders/', UserOrdersListView.as_view(), name='user_orders'),
+    path('users/<int:user_id>/orders/export/', ExportUserOrdersView.as_view(), name='export_user_orders'),
+
 ]
