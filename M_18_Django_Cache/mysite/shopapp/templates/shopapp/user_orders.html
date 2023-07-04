@@ -8,7 +8,7 @@
 {% block body %}
     {% if object_list %}
         <h1>Пользователь {{ user.username }} выполнил следующие заказы:</h1>
-        {% cache 100 somename owner %}
+        {% cache 100 somename owner.pk %}
             <ul>
                 {% for order in object_list %}
                     <li>{{ order.created_at }} - {{ order.delivery_address }}</li>
