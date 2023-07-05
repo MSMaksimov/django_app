@@ -178,18 +178,42 @@ class OrderDetailView(PermissionRequiredMixin, DetailView):
     )
 
 
+# class UserOrdersListView(LoginRequiredMixin, ListView):
+#     model = Order
+#     template_name = 'shopapp/user_orders.html'
+#     context_object_name = 'orders'
+#     owner = None
+#     paginate_by = 10
+#
+#     def get_queryset(self):
+#         user_id = self.kwargs.get('user_id')
+#         # print("user_id:", user_id)
+#         queryset = super().get_queryset().filter(user_id=user_id).order_by('-created_at')
+#         # print("queryset:", queryset)
+#         return queryset
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user_id = self.kwargs.get('user_id')
+#         user = get_object_or_404(User, id=user_id)
+#         self.owner = user
+#         # print('Current user:', self.owner)
+#         orders = Order.objects.filter(user=user)  # Получить заказы пользователя
+#         context['user'] = user
+#         context['object_list'] = orders
+#         # print('Context:', context)
+#         return context
+
 class UserOrdersListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'shopapp/user_orders.html'
-    context_object_name = 'orders'
+    context_object_name = 'object_list'  # изменено на 'object_list'
     owner = None
     paginate_by = 10
 
     def get_queryset(self):
         user_id = self.kwargs.get('user_id')
-        # print("user_id:", user_id)
         queryset = super().get_queryset().filter(user_id=user_id).order_by('-created_at')
-        # print("queryset:", queryset)
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -197,11 +221,9 @@ class UserOrdersListView(LoginRequiredMixin, ListView):
         user_id = self.kwargs.get('user_id')
         user = get_object_or_404(User, id=user_id)
         self.owner = user
-        # print('Current user:', self.owner)
-        orders = Order.objects.filter(user=user)  # Получить заказы пользователя
+        orders = Order.objects.filter(user=user)
         context['user'] = user
         context['object_list'] = orders
-        # print('Context:', context)
         return context
 
 
@@ -212,11 +234,12 @@ class ExportUserOrdersView(View):
         cached_data = cache.get(cache_key)
 
         if cached_data:
+            print('cache data used ')
             return JsonResponse(cached_data, safe=False)
 
         orders = Order.objects.filter(user=user).order_by('pk')
         serialized_orders = serialize('json', orders)
-
+        print('serializer used ')
         cache.set(cache_key, serialized_orders, 60*5)  # Cache data for 5 minutes
 
         return JsonResponse(serialized_orders, safe=False)

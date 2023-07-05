@@ -1,3 +1,27 @@
+{#{% extends "shopapp/base.html" %}#}
+{#{% load cache %}#}
+{##}
+{#{% block title %}#}
+{#    user_orders#}
+{#{% endblock %}#}
+{##}
+{#{% block body %}#}
+{#    {% if object_list %}#}
+{#        <h1>User {{ user.username }} completed the following orders:</h1>#}
+{#        {% cache 100 somename owner.pk 'user_orders' %}#}
+{#            <ul>#}
+{#                {% for order in object_list %}#}
+{#                    <li>{{ order.created_at }} - {{ order.delivery_address }}</li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        {% endcache %}#}
+{#        <div>#}
+{#            <a href="{% url 'shopapp:export_user_orders' user.id %}">Export Orders</a>#}
+{#        </div>#}
+{#    {% else %}#}
+{#        <h1>У пользователя {{ user.username }} ещё нет заказов.</h1>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
 {% extends "shopapp/base.html" %}
 {% load cache %}
 
@@ -7,15 +31,19 @@
 
 {% block body %}
     {% if object_list %}
-        <h1>Пользователь {{ user.username }} выполнил следующие заказы:</h1>
-        {% cache 100 somename owner.pk %}
+        <h1>User {{ user.username }} completed the following orders:</h1>
+        {% cache 100 somename user.id 'user_orders' %}
             <ul>
                 {% for order in object_list %}
                     <li>{{ order.created_at }} - {{ order.delivery_address }}</li>
                 {% endfor %}
             </ul>
         {% endcache %}
+        <div>
+            <a href="{% url 'shopapp:export_user_orders' user.id %}">Export Orders</a>
+        </div>
     {% else %}
         <h1>У пользователя {{ user.username }} ещё нет заказов.</h1>
     {% endif %}
 {% endblock %}
+
