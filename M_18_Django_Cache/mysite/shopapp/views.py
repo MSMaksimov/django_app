@@ -178,31 +178,49 @@ class OrderDetailView(PermissionRequiredMixin, DetailView):
     )
 
 
-class UserOrdersListView(LoginRequiredMixin, ListView):
+# class UserOrdersListView(LoginRequiredMixin, ListView):
+#     model = Order
+#     template_name = 'shopapp/user_orders.html'
+#     context_object_name = 'object_list'
+#     owner = None
+#     paginate_by = 10
+#
+#     def get_queryset(self):
+#         user_id = self.request.user.pk
+#         queryset = super().get_queryset().filter(user_id=user_id).order_by('-created_at')
+#         return queryset
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user_id = self.request.user.pk
+#         user = get_object_or_404(User, id=user_id)
+#         context['user'] = user
+#         context['owner'] = self.request.user.pk
+#         return context
+#
+#     def get(self, request, *args, **kwargs):
+#         self.object_list = self.get_queryset()
+#         self.kwargs['owner_id'] = self.owner
+#         return super().get(request, *args, **kwargs)
+
+class UserOrdersListView(ListView):
     model = Order
     template_name = 'shopapp/user_orders.html'
     context_object_name = 'object_list'
-    owner = None
     paginate_by = 10
 
     def get_queryset(self):
-        user_id = self.request.user.pk
+        user_id = self.kwargs.get('user_id')
         queryset = super().get_queryset().filter(user_id=user_id).order_by('-created_at')
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_id = self.request.user.pk
+        user_id = self.kwargs.get('user_id')
         user = get_object_or_404(User, id=user_id)
         context['user'] = user
-        context['owner'] = self.request.user.pk
+        context['owner'] = user.pk  # Здесь используем pk пользователя, как владельца
         return context
-
-    def get(self, request, *args, **kwargs):
-        self.object_list = self.get_queryset()
-        self.kwargs['owner_id'] = self.owner
-        return super().get(request, *args, **kwargs)
-
 
 class ExportUserOrdersView(View):
     def get(self, request, user_id):
